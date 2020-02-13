@@ -20,4 +20,9 @@ class BaseModel:
         self.updated_at = datetime.now()
 
     def to_dict(self):
-        
+        info = self.__dict__
+        info['__class__ '] = self.__class__.__name__
+        info['created_at '] = self.created_at.isoformat()
+        info['updated_at '] = self.updated_at.isoformat()
+        return info
+
