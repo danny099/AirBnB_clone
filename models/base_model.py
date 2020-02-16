@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from datetime import datetime
 from uuid import uuid4
+from models import storage
 """Base model"""
 
 time = "%Y-%m-%dT%H:%M:%S.%f"
@@ -30,6 +31,8 @@ class BaseModel:
     def save(self):
         """update whit the datetime"""
         self.updated_at = datetime.now()
+        storage.save()
+        storage.new(self)
 
     def to_dict(self):
         info = self.__dict__.copy()

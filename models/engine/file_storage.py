@@ -6,10 +6,8 @@ import os.path
 
 class FileStorage:
     """"class file storage"""
-    def __init__(self):
-        """init function"""
-        __file_path = "././file.json"
-        __objects = {}
+    __file_path = "././file.json"
+    __objects = {}
 
     def all(self):
         """return objects"""
@@ -17,7 +15,8 @@ class FileStorage:
     
     def new(self, obj):
         """sets the obj whith key"""
-        self.__objects = self.obj.id
+        key = obj.__class__.__name__ + "." + obj.id
+        self.__objects[key] = obj
     
     def save(self):
         """serialize"""
@@ -28,4 +27,5 @@ class FileStorage:
         """deserialice"""
         if os.path.isfile(self.__file_path):
             with open(self.__file_path, 'r', encoding="utf-8") as f:
-                self.__objects = json.loads(f)
+                self.__objects = json.load(f)
+        
