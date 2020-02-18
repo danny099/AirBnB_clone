@@ -9,6 +9,7 @@ time = "%Y-%m-%dT%H:%M:%S.%f"
 
 class BaseModel:
     """Base"""
+
     def __init__(self, *args, **kwargs):
         if kwargs:
             for key, value in kwargs.items():
@@ -25,7 +26,7 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             models.storage.new(self)
-            
+
     def __str__(self):
         """return class name"""
         return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
