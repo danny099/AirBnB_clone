@@ -2,13 +2,13 @@
 from datetime import datetime
 from uuid import uuid4
 import models
-"""Base model"""
+"""is a Base model"""
 
 time = "%Y-%m-%dT%H:%M:%S.%f"
 
 
 class BaseModel:
-    """Base class"""
+    """is a base class"""
 
     def __init__(self, *args, **kwargs):
         """init the args"""
