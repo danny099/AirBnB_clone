@@ -19,7 +19,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, args):
-        """Creates an instance of BaseModel"""
+        'Creates an instance of BaseModel'
         if args:
             if args in models.list_class:
                 obj = models.base_model.BaseModel()
@@ -30,6 +30,10 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class name missing **")
         return
+    
+    def emptyline(self):
+        'Empty line'
+        return ""
 
 
 if __name__ == '__main__':
