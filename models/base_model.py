@@ -8,9 +8,10 @@ time = "%Y-%m-%dT%H:%M:%S.%f"
 
 
 class BaseModel:
-    """Base"""
+    """Base class"""
 
     def __init__(self, *args, **kwargs):
+        """init the args"""
         if kwargs:
             for key, value in kwargs.items():
                 dic = {}
@@ -37,6 +38,7 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
+        """convert to dict"""
         info = self.__dict__.copy()
         info['__class__'] = self.__class__.__name__
         info['created_at'] = self.created_at.isoformat()
