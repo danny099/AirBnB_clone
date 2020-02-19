@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 """Unit test Amenity"""
-import unittest
-import pep8
+import models
 import os
+import os.path
+import unittest
 from models.amenity import Amenity
+from models.engine import file_storage
 from models.engine.file_storage import FileStorage
 
 
@@ -35,4 +37,5 @@ class Test(unittest.TestCase):
     def test_instance(self):
         """ check if amenity_1 is instance of Amenity """
         self.assertIsInstance(self.test_class, Amenity)
-        
+
+
