@@ -1,11 +1,9 @@
 #!/usr/bin/python3
 """Unit test Amenity"""
-import models
-import os
-import os.path
 import unittest
+import pep8
+import os
 from models.amenity import Amenity
-from models.engine import file_storage
 from models.engine.file_storage import FileStorage
 
 
