@@ -38,3 +38,7 @@ class TestBase(unittest.TestCase):
         self.assertIsInstance(dict_test["updated_at"], str)
         self.assertIsInstance(dict_test["my_number"], int)
         self.assertIsInstance(dict_test["id"], str)
+
+
+if __name__ == '__main__':
+    unittest.main()
