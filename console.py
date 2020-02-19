@@ -2,6 +2,14 @@
 import cmd
 import sys
 import models
+from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+from models.user import User
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models import storage
 import shlex
 
 """console"""
@@ -23,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
         'Creates an instance of BaseModel'
         if args:
             if args in models.list_class:
-                obj = models.base_model.BaseModel()
+                obj = eval(args)()
                 print(obj.id)
                 models.storage.save()
             else:
