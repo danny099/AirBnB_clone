@@ -13,7 +13,7 @@ from models.review import Review
 from models.state import State
 
 
-classes = {"BaseModel": BaseModel, "User": User, "Amenity": Amenity,
+list_class = {"BaseModel": BaseModel, "User": User, "Amenity": Amenity,
            "City": City, "Place": Place, "Review": Review, "State": State}
 
 
@@ -48,6 +48,6 @@ class FileStorage:
             with open(self.__file_path, 'r', encoding='utf-8') as f:
                 js = json.load(f)
             for key in js:
-                self.__objects[key] = classes[js[key]["__class__"]](**js[key])
+                self.__objects[key] = list_class[js[key]["__class__"]](**js[key])
         except:
             pass
