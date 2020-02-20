@@ -33,7 +33,7 @@ class TestBase(unittest.TestCase):
         self.assertEqual(self.test_class.name, name_test)
         self.test_class.my_number = 55
         self.assertEqual(self.test_class.my_number, 55)
-        self.assertTrue(path.isfile('my_file.json'))
+        self.assertTrue(path.isfile('name_test.json'))
         model = self.test_class.to_dict()
         self.assertIsInstance(model["created_at"], str)
         self.assertIsInstance(model["updated_at"], str)
