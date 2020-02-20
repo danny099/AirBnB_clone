@@ -46,15 +46,15 @@ class HBNBCommand(cmd.Cmd):
         'Empty line'
         pass
 
-    def do_show(self, line):
-        """Prints the string representation of an instance
-        based on the class name and id."""
-        if len((shlex.split(line))) == 0:
+    def do_show(self, args):
+        'show by id'
+        arg = shlex.split(args)
+        if len(arg) == 0:
             print("** class name missing **")
             return False
-        elif shlex.split(line)[0] in list_class:
-            if len((shlex.split(line))) > 1:
-                key = shlex.split(line)[0] + "." + shlex.split(line)[1]
+        if arg[0] in list_class:
+            if len(arg) > 1:
+                key = arg[0] + "." + arg[1]
                 if key in models.storage.all():
                     print(models.storage.all()[key])
                 else:
@@ -62,16 +62,17 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** instance id missing **")
         else:
-            print("** class doesn't exist **")
+            print("** class doesn't exist**")
 
-    def do_destroy(self, line):
-        """Deletes an instance based on the class name and id"""
-        if len((shlex.split(line))) == 0:
+    def do_destroy(self, args):
+        'delete by id'
+        arg = shlex.split(args)
+        if len(arg) == 0:
             print("** class name missing **")
             return False
-        elif shlex.split(line)[0] in list_class:
-            if len((shlex.split(line))) > 1:
-                key = shlex.split(line)[0] + "." + shlex.split(line)[1]
+        if arg[0] in list_class:
+            if len(arg) > 1:
+                key = arg[0] + "." + arg[1]
                 if key in models.storage.all():
                     models.storage.all().pop(key)
                     models.storage.save()
@@ -80,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** instance id missing **")
         else:
-            print("** class doesn't exist **")
+            print("** class doesn't exist**")
 
     def do_all(self, args):
         'show all'
