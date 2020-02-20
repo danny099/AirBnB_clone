@@ -44,7 +44,7 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         'Empty line'
-        return pass
+        pass
 
     def do_show(self, args):
         'show by id'
