@@ -2,18 +2,19 @@
 import cmd
 import sys
 import models
-from models.amenity import Amenity
 from models.base_model import BaseModel
-from models.city import City
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-from models.state import State
-from models import storage
+from models.engine.file_storage import FileStorage
 import shlex
 
 """console"""
-
+list_class = {"BaseModel": BaseModel, "State": State, "Amenity": Amenity,
+              "Place": Place, "Review": Review, "User": User}
 
 class HBNBCommand(cmd.Cmd):
     """console"""
@@ -30,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         'Creates an instance of BaseModel'
         if args:
-            if args in models.list_class:
+            if args in list_class:
                 obj = eval(args)()
                 print(obj.id)
                 models.storage.save()
@@ -50,7 +51,7 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) == 0:
             print("** class name missing **")
             return False
-        if arg[0] in models.list_class:
+        if arg[0] in list_class:
             if len(arg) > 1:
                 key = arg[0] + "." + arg[1]
                 if key in models.storage.all():
@@ -68,7 +69,7 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) == 0:
             print("** class name missing **")
             return False
-        if arg[0] in models.list_class:
+        if arg[0] in list_class:
             if len(arg) > 1:
                 key = arg[0] + "." + arg[1]
                 if key in models.storage.all():
@@ -88,7 +89,7 @@ class HBNBCommand(cmd.Cmd):
             for i in models.storage.all().values():
                 ls.append(str(i))
             print("[\"" + ", ".join(ls) + "\"]")
-        elif arg[0] in models.list_class:
+        elif arg[0] in list_class:
             for key in models.storage.all():
                 if arg[0] in key:
                     ls.append(str(models.storage.all()[key]))
@@ -101,7 +102,7 @@ class HBNBCommand(cmd.Cmd):
         arg = shlex.split(args)
         if len(arg) == 0:
             print("** class name missing **")
-        elif arg[0] in models.list_class:
+        elif arg[0] in list_class:
             if len(arg) > 1:
                 key = arg[0] + "." + arg[1]
                 if key in models.storage.all():
