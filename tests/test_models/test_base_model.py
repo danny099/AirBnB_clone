@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """Unit test Base Model"""
 import unittest
+import json
 import pep8
-import os
+from os import path
 from models.base_model import BaseModel
-from models.engine.file_storage import FileStorage
 
 
 class Testpep8(unittest.TestCase):
@@ -30,14 +30,15 @@ class TestBase(unittest.TestCase):
         """Test model name"""
         name_test = 'Holberton Test'
         self.test_class.name = name_test
-        self.assertEqual(self.test_class.name, 'Holberton')
+        self.assertEqual(self.test_class.name, name_test)
         self.test_class.my_number = 55
         self.assertEqual(self.test_class.my_number, 55)
-        dict_test = self.test_class.to_dict()
-        self.assertIsInstance(dict_test["created_at"], str)
-        self.assertIsInstance(dict_test["updated_at"], str)
-        self.assertIsInstance(dict_test["my_number"], int)
-        self.assertIsInstance(dict_test["id"], str)
+        self.assertTrue(path.isfile('my_file.json'))
+        model = self.test_class.to_dict()
+        self.assertIsInstance(model["created_at"], str)
+        self.assertIsInstance(model["updated_at"], str)
+        self.assertIsInstance(model["my_number"], int)
+        self.assertIsInstance(model["id"], str)
 
 
 if __name__ == '__main__':
