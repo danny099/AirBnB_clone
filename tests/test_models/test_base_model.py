@@ -24,17 +24,30 @@ class TestBase(unittest.TestCase):
 
     def setUp(self):
         """ Set a variable """
-        self.test_class = BaseModel
+        self.my_model = BaseModel
+
+    def tearDown(self):
+        pass
+
+    @classmethod
+    def setUpClass(cls):
+        pass
+
+    @classmethod
+    def tearDownClass(cls):
+        pass
 
     def TestModels(self):
         """Test model name"""
-        name_test = 'Holberton Test'
-        self.test_class.name = name_test
-        self.assertEqual(self.test_class.name, name_test)
-        self.test_class.my_number = 55
-        self.assertEqual(self.test_class.my_number, 55)
+        self.my_model.name = 'Holberton'
+        self.assertEqual(self.my_model.name, 'Holberton')
+        """Test model numbers"""
+        self.my_model.my_number = 55
+        self.assertEqual(self.my_model.my_number, 55)
+        """Test model exist"""
         self.assertTrue(path.isfile('my_file.json'))
-        model = self.test_class.to_dict()
+        """Test model to dict"""
+        model = self.my_model.to_dict()
         self.assertIsInstance(model["created_at"], str)
         self.assertIsInstance(model["updated_at"], str)
         self.assertIsInstance(model["my_number"], int)
