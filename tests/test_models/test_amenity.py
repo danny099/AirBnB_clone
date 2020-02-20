@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """Unit test Amenity"""
+
+
 from models.amenity import Amenity
 import unittest
 import models

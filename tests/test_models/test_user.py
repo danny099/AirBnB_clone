@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-'''Unit test User class'''
+"""Unit test User class"""
+
+
 from models.user import User
 import unittest
 import models

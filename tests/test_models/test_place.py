@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """Unit test Place"""
+
+
 from models.place import Place
 import unittest
 import models

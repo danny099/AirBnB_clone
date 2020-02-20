@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """Unit test City"""
+
+
 from models.city import City
 import unittest
 import models
