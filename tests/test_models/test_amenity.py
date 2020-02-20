@@ -25,6 +25,16 @@ class Test(unittest.TestCase):
         self.test_class.name = name_test
         self.assertEqual(self.test_class.name, name_test)
 
+    def test_permissions(self):
+        """Test Permissions of file"""
+
+        r = os.access('models/amenity.py', os.R_OK)
+        self.assertTrue(r, "Read permissions")
+        w = os.access('models/amenity.py', os.W_OK)
+        self.assertTrue(w, "Write permissions")
+        e = os.access('models/amenity.py', os.X_OK)
+        self.assertTrue(e, "Execute permissions")
+
     def test_dict(self):
         """test the dict"""
         dict_test = self.test_class.to_dict()

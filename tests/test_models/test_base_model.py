@@ -5,7 +5,8 @@ import json
 import pep8
 from os import path
 from models.base_model import BaseModel
-
+import models
+import os
 
 class Testpep8(unittest.TestCase):
     """Pep8 testing"""
@@ -24,30 +25,27 @@ class TestBase(unittest.TestCase):
 
     def setUp(self):
         """ Set a variable """
-        self.my_model = BaseModel
-
-    def tearDown(self):
-        pass
-
-    @classmethod
-    def setUpClass(cls):
-        pass
-
-    @classmethod
-    def tearDownClass(cls):
-        pass
+        self.test_class = BaseModel
 
     def TestModels(self):
         """Test model name"""
-        self.my_model.name = 'Holberton'
-        self.assertEqual(self.my_model.name, 'Holberton')
-        """Test model numbers"""
-        self.my_model.my_number = 55
-        self.assertEqual(self.my_model.my_number, 55)
-        """Test model exist"""
+        self.assertIsNotNone(
+            models.base_model.__doc__,
+            "No docstring in the module"
+        )
+        r = os.access('models/base_model.py', os.R_OK)
+        self.assertTrue(r, "Read permissions")
+        w = os.access('models/base_model.py', os.W_OK)
+        self.assertTrue(w, "Write permissions")
+        e = os.access('models/base_model.py', os.X_OK)
+        self.assertTrue(e, "Execute permissions")
+        self.assertIsNotNone(BaseModel.__doc__, "No docstring in the class")
+        self.test_class.name = 'Holberton'
+        self.assertEqual(self.test_class.name, 'Holberton')
+        self.test_class.my_number = 55
+        self.assertEqual(self.test_class.my_number, 55)
         self.assertTrue(path.isfile('my_file.json'))
-        """Test model to dict"""
-        model = self.my_model.to_dict()
+        model = self.test_class.to_dict()
         self.assertIsInstance(model["created_at"], str)
         self.assertIsInstance(model["updated_at"], str)
         self.assertIsInstance(model["my_number"], int)

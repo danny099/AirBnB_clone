@@ -19,6 +19,16 @@ class Test(unittest.TestCase):
         self.assertIsNotNone(Place.__doc__)
         self.assertIsNotNone(Place.__init__.__doc__)
 
+    def test_permissions(self):
+        """Test Permissions of file"""
+
+        r = os.access('models/place.py', os.R_OK)
+        self.assertTrue(r, "Read permissions")
+        w = os.access('models/place.py', os.W_OK)
+        self.assertTrue(w, "Write permissions")
+        e = os.access('models/place.py', os.X_OK)
+        self.assertTrue(e, "Execute permissions")
+
     def test_dict(self):
         """test the dict"""
         dict_test = self.test_class.to_dict()

@@ -56,6 +56,16 @@ class Test_User(unittest.TestCase):
         second_updated = my_model2.updated_at
         self.assertNotEqual(first_updated, second_updated)
 
+    def test_permissions(self):
+        """Test Permissions of file"""
+
+        r = os.access('models/user.py', os.R_OK)
+        self.assertTrue(r, "Read permissions")
+        w = os.access('models/user.py', os.W_OK)
+        self.assertTrue(w, "Write permissions")
+        e = os.access('models/user.py', os.X_OK)
+        self.assertTrue(e, "Execute permissions")
+
     def test_to_dict(self):
         '''check if to_dict returns a dictionary'''
         my_model3 = User()

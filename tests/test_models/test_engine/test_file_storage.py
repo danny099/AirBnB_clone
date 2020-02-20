@@ -19,7 +19,7 @@ class TestFile_Storage(unittest.TestCase):
         self.assertIsNotNone(obj, msj)
 
     def test_executable_file(self):
-        '''test if file has permissions u+x to execute'''
+        """test if file has permissions u+x to execute"""
         is_read_true = os.access('models/engine/file_storage.py', os.R_OK)
         self.assertTrue(is_read_true)
         is_write_true = os.access('models/engine/file_storage.py', os.W_OK)
@@ -28,6 +28,6 @@ class TestFile_Storage(unittest.TestCase):
         self.assertTrue(is_exec_true)
 
     def test_is_an_instance(self):
-        '''check if my_model is an instance of BaseModel'''
+        """check if my_model is an instance of BaseModel"""
         my_model = FileStorage()
         self.assertIsInstance(my_model, FileStorage)
