@@ -1,33 +1,47 @@
 #!/usr/bin/python3
 """Unit test FileStorage"""
-import unittest
-import pep8
-import os
-import models
 from models.engine.file_storage import FileStorage
+import unittest
+import models
+import os
 
 
-class TestFile_Storage(unittest.TestCase):
-    '''start tests'''
+class TestFileStorage(unittest.TestCase):
+    """ Test of File Storage """
 
-    def test_docstring(self):
-        '''test if funcions'''
-        msj = "Módulo does not has docstring"
-        obj = models.engine.file_storage.__doc__
-        self.assertIsNotNone(obj, msj)
-        msj = "Clase does not has docstring"
-        self.assertIsNotNone(obj, msj)
+    def setUp(self):
+        """SetUp method"""
 
-    def test_executable_file(self):
-        """test if file has permissions u+x to execute"""
-        is_read_true = os.access('models/engine/file_storage.py', os.R_OK)
-        self.assertTrue(is_read_true)
-        is_write_true = os.access('models/engine/file_storage.py', os.W_OK)
-        self.assertTrue(is_write_true)
-        is_exec_true = os.access('models/engine/file_storage.py', os.X_OK)
-        self.assertTrue(is_exec_true)
+        self.file_storage = FileStorage()
 
-    def test_is_an_instance(self):
-        """check if my_model is an instance of BaseModel"""
-        my_model = FileStorage()
-        self.assertIsInstance(my_model, FileStorage)
+    def TearDown(self):
+        """TearDown method."""
+
+        del self.file_storage
+
+    def test_doc(self):
+        """Test docs for class"""
+
+        self.assertIsNotNone(
+            models.engine.file_storage.__doc__,
+            "No docstring in the module"
+        )
+        self.assertIsNotNone(FileStorage.__doc__, "No docstring in the class")
+
+    def test_permissions(self):
+        """Test Permissions of file"""
+
+        r = os.access('models/engine/file_storage.py', os.R_OK)
+        self.assertTrue(r, "Read permissions")
+        w = os.access('models/engine/file_storage.py', os.W_OK)
+        self.assertTrue(w, "Write permissions")
+        e = os.access('models/engine/file_storage.py', os.X_OK)
+        self.assertTrue(e, "Execute permissions")
+
+    def test_type(self):
+        """Test type of class"""
+
+        self.assertEqual(
+            str(type(self.file_storage)),
+            "<class 'models.engine.file_storage.FileStorage'>")
+        self.assertIsInstance(self.file_storage, FileStorage)

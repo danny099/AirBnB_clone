@@ -1,27 +1,30 @@
 #!/usr/bin/python3
-"""Unit test Amenity"""
+"""Unit test Review"""
 import unittest
+import json
 import pep8
-import os
+from os import path
 from models.review import Review
-from models.engine.file_storage import FileStorage
+import models
+import os
 
 
-class Test(unittest.TestCase):
-    """test"""
+class TestBase(unittest.TestCase):
+    """ Test all of i think """
 
     def setUp(self):
-        """set the class"""
-        self.test_class = Review()
+        """ Set a variable """
+        self.test_class = Review
 
-    def test_doc(self):
-        """test the documentation """
-        self.assertIsNotNone(Review.__doc__)
-        self.assertIsNotNone(Review.__init__.__doc__)
+    def TestModels(self):
+        """Test model name"""
+        self.assertIsNotNone(
+            models.review.__doc__,
+            "No docstring in the module"
+        )
+        self.assertIsNotNone(Review.__doc__, "No docstring in the class")
 
-    def test_permissions(self):
-        """Test Permissions of file"""
-
+    def TestPermission(self):
         r = os.access('models/review.py', os.R_OK)
         self.assertTrue(r, "Read permissions")
         w = os.access('models/review.py', os.W_OK)
@@ -29,16 +32,14 @@ class Test(unittest.TestCase):
         e = os.access('models/review.py', os.X_OK)
         self.assertTrue(e, "Execute permissions")
 
-    def test_dict(self):
-        """test the dict"""
-        dict_test = self.test_class.to_dict()
-        self.assertIsInstance(dict_test["created_at"], str)
-        self.assertIsInstance(dict_test["updated_at"], str)
-        self.assertIsInstance(dict_test["place_id"], str)
-        self.assertIsInstance(dict_test["id"], str)
-        self.assertIsInstance(dict_test["user_id"], str)
-        self.assertIsInstance(dict_test["text"], str)
+    def test_type(self):
+        """Test type of class"""
 
-    def test_instance(self):
-        """ check if amenity_1 is instance of Amenity """
-        self.assertIsInstance(self.test_class, Review)
+        self.assertEqual(
+            str(type(self.file_storage)),
+            "<class 'models.review.Review'>")
+        self.assertIsInstance(self.file_storage, Review)
+
+
+if __name__ == '__main__':
+    unittest.main()
