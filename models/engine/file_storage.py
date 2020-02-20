@@ -13,7 +13,8 @@ from models.review import Review
 
 list_class = {"BaseModel": BaseModel, "State": State, "Amenity": Amenity,
               "Place": Place, "Review": Review, "User": User}
-              
+
+
 class FileStorage:
     """"class file storage"""
     __file_path = "././file.json"
@@ -42,6 +43,7 @@ class FileStorage:
             with open(self.__file_path, 'r', encoding='utf-8') as f:
                 json = json.load(f)
             for key in json:
-                self.__objects[key] = classes[json[key]["__class__"]](**json[key])
+                self.__objects[key] = classes[json[key]
+                                              ["__class__"]](**json[key])
         except:
             pass

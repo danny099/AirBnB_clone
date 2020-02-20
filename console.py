@@ -16,6 +16,7 @@ import shlex
 list_class = {"BaseModel": BaseModel, "State": State, "Amenity": Amenity,
               "Place": Place, "Review": Review, "User": User}
 
+
 class HBNBCommand(cmd.Cmd):
     """console"""
     prompt = '(hbnb) '
