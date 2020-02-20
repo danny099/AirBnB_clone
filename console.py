@@ -80,6 +80,22 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist**")
 
+    def do_all(self, args):
+        'show all'
+        ls = []
+        arg = shlex.split(args)
+        if len(arg) == 0:
+            for i in models.storage.all().values():
+                ls.append(str(i))
+            print("[\"" + ", ".join(ls) + "\"]")
+        elif arg[0] in models.list_class:
+            for key in models.storage.all():
+                if arg[0] in key:
+                    ls.append(str(models.storage.all()[key]))
+            print("[\"" + ", ".join(ls) + "\"]")
+        else:
+            print("** class doesn't exist **")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
