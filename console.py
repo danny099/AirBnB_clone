@@ -46,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
         'Empty line'
         pass
 
-     def do_show(self, line):
+    def do_show(self, line):
         """Prints the string representation of an instance
         based on the class name and id."""
         if len((shlex.split(line))) == 0:
