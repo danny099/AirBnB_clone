@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Unit test Place"""
+
+""" Module to test Place """
 
 
 from models.place import Place

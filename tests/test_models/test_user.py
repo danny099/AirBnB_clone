@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Unit test User class"""
+
+""" Module to test User """
 
 
 from models.user import User

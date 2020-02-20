@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Unit test State"""
+
+""" Module to test State """
 
 
 from models.state import State

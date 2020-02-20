@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Unit test Amenity"""
+
+""" Module to test Amenity """
 
 
 from models.amenity import Amenity

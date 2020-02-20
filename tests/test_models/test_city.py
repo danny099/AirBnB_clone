@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Unit test City"""
+
+""" Module to test City """
 
 
 from models.city import City

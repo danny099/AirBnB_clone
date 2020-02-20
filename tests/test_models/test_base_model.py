@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Unit test Base Model"""
+
+""" Module to test BaseModel """
 
 
 from models.base_model import BaseModel

@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Unit test FileStorage"""
+
+""" Module to test FileStorage """
 
 
 from models.engine.file_storage import FileStorage
