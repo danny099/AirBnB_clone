@@ -96,33 +96,29 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-    def do_update(self, arg):
-        'update'
-        args = shlex.split(arg)
-        integers = ["number_rooms", "number_bathrooms", "max_guest",
-                    "price_by_night"]
-        floats = ["latitude", "longitude"]
-        if len(args) == 0:
+    def do_update(self, args):
+        'update the models'
+        arg = shlex.split(args)
+        if len(arg) == 0:
             print("** class name missing **")
-        elif args[0] in models.list_class:
-            if len(args) > 1:
-                k = args[0] + "." + args[1]
-                if k in models.storage.all():
-                    if len(args) > 2:
-                        if len(args) > 3:
-                            if args[0] == "Place":
-                                if args[2] in integers:
-                                    try:
-                                        args[3] = int(args[3])
-                                    except:
-                                        args[3] = 0
-                                elif args[2] in floats:
-                                    try:
-                                        args[3] = float(args[3])
-                                    except:
-                                        args[3] = 0.0
-                            setattr(models.storage.all()[k], args[2], args[3])
-                            models.storage.all()[k].save()
+        elif arg[0] in models.list_class:
+            if len(arg) > 1:
+                key = arg[0] + "." + arg[1]
+                if key in models.storage.all():
+                    if len(arg) > 2:
+                        if len(arg) > 3:
+                            if type(arg[2]) is int:
+                                try:
+                                    arg[3] = int(arg[3])
+                                except:
+                                    arg[3] = 0
+                            elif type(arg[2]) is float:
+                                try:
+                                    arg[3] = float(arg[3])
+                                except:
+                                    arg[3] = 0.0
+                            setattr(models.storage.all()[key], arg[2], arg[3])
+                            models.storage.all()[key].save()
                         else:
                             print("** value missing **")
                     else:
