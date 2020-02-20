@@ -1,30 +1,36 @@
 #!/usr/bin/python3
 """Unit test Base Model"""
-import unittest
-import json
-import pep8
-from os import path
 from models.base_model import BaseModel
+import unittest
 import models
 import os
 
 
-class TestBase(unittest.TestCase):
-    """ Test all of i think """
+class TestBaseModel(unittest.TestCase):
+    """ Test of File Storage """
 
     def setUp(self):
-        """ Set a variable """
-        self.test_class = BaseModel
+        """SetUp method"""
 
-    def TestModels(self):
-        """Test model name"""
+        self.file_storage = BaseModel()
+
+    def TearDown(self):
+        """TearDown method."""
+
+        del self.file_storage
+
+    def test_doc(self):
+        """Test docs for class"""
+
         self.assertIsNotNone(
             models.base_model.__doc__,
             "No docstring in the module"
         )
         self.assertIsNotNone(BaseModel.__doc__, "No docstring in the class")
 
-    def TestPermission(self):
+    def test_permissions(self):
+        """Test Permissions of file"""
+
         r = os.access('models/base_model.py', os.R_OK)
         self.assertTrue(r, "Read permissions")
         w = os.access('models/base_model.py', os.W_OK)
@@ -39,7 +45,3 @@ class TestBase(unittest.TestCase):
             str(type(self.file_storage)),
             "<class 'models.base_model.BaseModel'>")
         self.assertIsInstance(self.file_storage, BaseModel)
-
-
-if __name__ == '__main__':
-    unittest.main()
