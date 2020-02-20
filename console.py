@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import cmd
-import shlex
+import sys
 import models
 from models.base_model import BaseModel
 from models.user import User
@@ -10,52 +10,51 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 from models.engine.file_storage import FileStorage
+import shlex
 
-classes = {"BaseModel": BaseModel, "User": User, "State": State, "City": City,
-           "Amenity": Amenity, "Place": Place, "Review": Review}
+"""console"""
+list_class = {"BaseModel": BaseModel, "State": State, "Amenity": Amenity,
+              "Place": Place, "Review": Review, "User": User}
 
 
 class HBNBCommand(cmd.Cmd):
+    """console"""
     prompt = '(hbnb) '
 
-    def emptyline(self):
-        """Called when an empty line is entered in response to the prompt.
-        If this method is not overridden, it repeats the last nonempty
-        command entered."""
-        if self.lastcmd:
-            self.lastcmd = ""
-            return self.onecmd('\n')
-
     def do_EOF(self, line):
-        """End of the file function"""
+        'exit'
         return True
 
     def do_quit(self, line):
-        """command that quit the program"""
+        'exit whit command quit'
         return True
 
-    def do_create(self, line):
-        """command that creates a new instance of BaseModel """
-        if len((shlex.split(line))) == 0:
-            print("** class name missing **")
-            return False
-        elif shlex.split(line)[0] in classes:
-            instance = classes[shlex.split(line)[0]]()
+    def do_create(self, args):
+        'Creates an instance of BaseModel'
+        if args:
+            if args in list_class:
+                obj = eval(args)()
+                print(obj.id)
+                models.storage.save()
+            else:
+                print("** class doesn't exist **")
         else:
-            print("** class doesn't exist **")
-            return False
-        print(instance.id)
-        instance.save()
+            print("** class name missing **")
+        return
 
-    def do_show(self, line):
-        """Prints the string representation of an instance
-        based on the class name and id."""
-        if len((shlex.split(line))) == 0:
+    def emptyline(self):
+        'Empty line'
+        pass
+
+    def do_show(self, args):
+        'show by id'
+        arg = shlex.split(args)
+        if len(arg) == 0:
             print("** class name missing **")
             return False
-        elif shlex.split(line)[0] in classes:
-            if len((shlex.split(line))) > 1:
-                key = shlex.split(line)[0] + "." + shlex.split(line)[1]
+        if arg[0] in list_class:
+            if len(arg) > 1:
+                key = arg[0] + "." + arg[1]
                 if key in models.storage.all():
                     print(models.storage.all()[key])
                 else:
@@ -63,66 +62,65 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** instance id missing **")
         else:
-            print("** class doesn't exist **")
+            print("** class doesn't exist**")
 
-    def do_destroy(self, line):
-        """Deletes an instance based on the class name and id"""
-        if len((shlex.split(line))) == 0:
+    def do_destroy(self, args):
+        'delete by id'
+        arg = shlex.split(args)
+        if len(arg) == 0:
             print("** class name missing **")
             return False
-        elif shlex.split(line)[0] in classes:
-            if len((shlex.split(line))) > 1:
-                key = shlex.split(line)[0] + "." + shlex.split(line)[1]
+        if arg[0] in list_class:
+            if len(arg) > 1:
+                key = arg[0] + "." + arg[1]
                 if key in models.storage.all():
                     models.storage.all().pop(key)
-                    models.storage.save()
                 else:
                     print("** no instance found **")
             else:
                 print("** instance id missing **")
         else:
-            print("** class doesn't exist **")
+            print("** class doesn't exist**")
 
-    def do_all(self, line):
-        """Prints all string representation of all instances
-        based or not on the class name."""
-        obj = []
-        if len((shlex.split(line))) == 0:
+    def do_all(self, args):
+        'show all'
+        ls = []
+        arg = shlex.split(args)
+        if len(arg) == 0:
             for i in models.storage.all().values():
-                obj.append(str(i))
-            print("[\"" + ", ".join(obj) + "\"]")
-        elif shlex.split(line)[0] in classes:
+                ls.append(str(i))
+            print("[\"" + ", ".join(ls) + "\"]")
+        elif arg[0] in list_class:
             for key in models.storage.all():
-                if shlex.split(line)[0] in key:
-                    obj.append(str(models.storage.all()[key]))
-            print("[\"" + ", ".join(obj) + "\"]")
+                if arg[0] in key:
+                    ls.append(str(models.storage.all()[key]))
+            print("[\"" + ", ".join(ls) + "\"]")
         else:
             print("** class doesn't exist **")
 
-    def do_update(self, line):
-        """ Updates an instance based on the class name
-        and id by adding or updating attribute(save into the json_f)"""
-        argu = shlex.split(line)
-        if len(argu) == 0:
+    def do_update(self, args):
+        'update the models'
+        arg = shlex.split(args)
+        if len(arg) == 0:
             print("** class name missing **")
-        elif argu[0] in classes:
-            if len(argu) > 1:
-                ky = argu[0] + "." + argu[1]
-                if ky in models.storage.all():
-                    if len(argu) > 2:
-                        if len(argu) > 3:
-                            if type(argu[2]) is int:
+        elif arg[0] in list_class:
+            if len(arg) > 1:
+                key = arg[0] + "." + arg[1]
+                if key in models.storage.all():
+                    if len(arg) > 2:
+                        if len(arg) > 3:
+                            if type(arg[2]) is int:
                                 try:
-                                    argu[3] = int(argu[3])
+                                    arg[3] = int(arg[3])
                                 except:
-                                    argu[3] = 0
-                            elif type(argu[2]) is float:
+                                    arg[3] = 0
+                            elif type(arg[2]) is float:
                                 try:
-                                    argu[3] = float(argu[3])
+                                    arg[3] = float(arg[3])
                                 except:
-                                    argu[3] = 0.0
-                            setattr(models.storage.all()[ky], argu[2], argu[3])
-                            models.storage.all()[ky].save()
+                                    arg[3] = 0.0
+                            setattr(models.storage.all()[key], arg[2], arg[3])
+                            models.storage.all()[key].save()
                         else:
                             print("** value missing **")
                     else:
@@ -133,6 +131,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** instance id missing **")
         else:
             print("** class doesn't exist **")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
