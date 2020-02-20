@@ -29,18 +29,18 @@ class HBNBCommand(cmd.Cmd):
         'exit whit command quit'
         return True
 
-    def do_create(self, line):
-        """command that creates a new instance of BaseModel """
-        if len((shlex.split(line))) == 0:
-            print("** class name missing **")
-            return False
-        elif shlex.split(line)[0] in list_class:
-            instance = classes[shlex.split(line)[0]]()
+    def do_create(self, args):
+        'Creates an instance of BaseModel'
+        if args:
+            if args in list_class:
+                obj = eval(args)()
+                print(obj.id)
+                models.storage.save()
+            else:
+                print("** class doesn't exist **")
         else:
-            print("** class doesn't exist **")
-            return False
-        print(instance.id)
-        instance.save()
+            print("** class name missing **")
+        return
 
     def emptyline(self):
         'Empty line'
@@ -64,23 +64,23 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-    def do_destroy(self, args):
-        'delete by id'
-        arg = shlex.split(args)
-        if len(arg) == 0:
+    def do_destroy(self, line):
+        """Deletes an instance based on the class name and id"""
+        if len((shlex.split(line))) == 0:
             print("** class name missing **")
             return False
-        if arg[0] in list_class:
-            if len(arg) > 1:
-                key = arg[0] + "." + arg[1]
+        elif shlex.split(line)[0] in classes:
+            if len((shlex.split(line))) > 1:
+                key = shlex.split(line)[0] + "." + shlex.split(line)[1]
                 if key in models.storage.all():
                     models.storage.all().pop(key)
+                    models.storage.save()
                 else:
                     print("** no instance found **")
             else:
                 print("** instance id missing **")
         else:
-            print("** class doesn't exist**")
+            print("** class doesn't exist **")
 
     def do_all(self, args):
         'show all'
