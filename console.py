@@ -69,7 +69,7 @@ class HBNBCommand(cmd.Cmd):
         if len((shlex.split(line))) == 0:
             print("** class name missing **")
             return False
-        elif shlex.split(line)[0] in classes:
+        elif shlex.split(line)[0] in list_class:
             if len((shlex.split(line))) > 1:
                 key = shlex.split(line)[0] + "." + shlex.split(line)[1]
                 if key in models.storage.all():
