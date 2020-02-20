@@ -35,5 +35,3 @@ class Test(unittest.TestCase):
     def test_instance(self):
         """ check if amenity_1 is instance of Amenity """
         self.assertIsInstance(self.test_class, Amenity)
-
-

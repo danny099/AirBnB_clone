@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''Tests for FileStorage class'''
+"""Unit test FileStorage"""
 import unittest
 import pep8
 import os
