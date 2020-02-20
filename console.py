@@ -29,18 +29,18 @@ class HBNBCommand(cmd.Cmd):
         'exit whit command quit'
         return True
 
-    def do_create(self, args):
-        'Creates an instance of BaseModel'
-        if args:
-            if args in list_class:
-                obj = eval(args)()
-                print(obj.id)
-                models.storage.save()
-            else:
-                print("** class doesn't exist **")
-        else:
+    def do_create(self, line):
+        """command that creates a new instance of BaseModel """
+        if len((shlex.split(line))) == 0:
             print("** class name missing **")
-        return
+            return False
+        elif shlex.split(line)[0] in classes:
+            instance = classes[shlex.split(line)[0]]()
+        else:
+            print("** class doesn't exist **")
+            return False
+        print(instance.id)
+        instance.save()
 
     def emptyline(self):
         'Empty line'
