@@ -25,10 +25,6 @@ class TestBaseModel(unittest.TestCase):
     def test_doc(self):
         """Test docs for class"""
 
-        self.assertIsNotNone(
-            models.base_model.__doc__,
-            "No docstring in the module"
-        )
         self.assertIsNotNone(BaseModel.__doc__, "No docstring in the class")
 
     def test_permissions(self):
