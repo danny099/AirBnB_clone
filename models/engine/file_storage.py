@@ -39,11 +39,8 @@ class FileStorage:
 
     def reload(self):
         """deserialize"""
-        try:
-            with open(self.__file_path, 'r', encoding='utf-8') as f:
-                json = json.load(f)
-            for key in json:
-                self.__objects[key] = classes[json[key]
-                                              ["__class__"]](**json[key])
-        except:
-            pass
+        if os.path.isfile(self.__file_path):
+            with open(self.__file_path, 'r', encoding="utf-8") as f:
+                for key, value in json.load(f).items():
+                    new = eval(value["__class__"])(**value)
+                    self.__objects[key] = new
