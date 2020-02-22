@@ -12,7 +12,7 @@ from models.place import Place
 from models.review import Review
 
 list_class = {"BaseModel": BaseModel, "State": State, "Amenity": Amenity,
-              "Place": Place, "Review": Review, "User": User}
+              "Place": Place, "Review": Review, "User": User, "City": City}
 
 
 class FileStorage:

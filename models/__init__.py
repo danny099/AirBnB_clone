@@ -10,8 +10,7 @@ from models.review import Review
 from models.state import State
 from models.engine.file_storage import FileStorage
 
-
 list_class = {"BaseModel": BaseModel, "State": State, "Amenity": Amenity,
-              "Place": Place, "Review": Review, "User": User}
+              "Place": Place, "Review": Review, "User": User, "City": City}
 storage = FileStorage()
 storage.reload()
